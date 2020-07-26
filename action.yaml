@@ -2,17 +2,22 @@ name: 'mkachi-blog-deploy-action'
 description: 'Action to deploy my blog with github action'
 
 inputs:
-  token:
-    description: 'your github token'
-    required: false
+  ACCESS_TOKEN:
+    description: 'your access token'
+    required: true
     default: ''
 
-  deploy_folder:
+  GITHUB_TOKEN:
+    description: 'your github token'
+    required: true
+    default: ''
+
+  FOLDER:
     description: 'deploy file path'
     required: true
     default: 'build'
 
-  deploy_branch:
+  BRANCH:
     description: 'deploy branch'
     required: true
     default: 'master'
