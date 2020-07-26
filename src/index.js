@@ -4,30 +4,34 @@ const time = require('./time')
 const execute = require('./execute')
 const path = require('path')
 
-const tempDir = '__temp__deploy__'
+const tempDir = './_temporary_'
 
 const deploy = async (message, target, info) => {
+  console.log(`mkdir ${tempDir}`)
   await execute(`mkdir ${tempDir}`)
-  await execute(`cd ${tempDir}`)
+  await execute('ls')
 
-  await execute('git init')
-  await execute(`git config user.name "${info.name}"`)
-  await execute(`git config user.email "${info.email}"`)
+  console.log('git initialize...')
+  await execute('git init', tempDir)
+  await execute(`git config user.name "${info.name}"`, tempDir)
+  await execute(`git config user.email "${info.email}"`, tempDir)
 
+  console.log('git remote add...')
   let token = info.accessToken
   if (token === '') {
     token = `x-access-token:${info.githubToken}`
   }
-  await execute(`git remote add origin https://${token}@github.com/${target.repository}.git`)
-  await execute('git pull -f')
+  await execute(`git remote add origin https://${token}@github.com/${target.repository}.git`, tempDir)
+  await execute('git pull origin master', tempDir)
 
-  await execute(`git checkout ${target.branch}`)
-  await execute(`rm -rf ./*`)
-  await execute(`mv ${target.folder}/* ./`)
+  console.log('move deploy files...')
+  await execute(`rm -rf ./*`, tempDir)
+  await execute(`rsync -a ${target.folder}/ ${tempDir}/`)
 
-  await execute('git add .')
-  await execute(`git commit -m "${message}"`)
-  await execute('git push -u -f origin master')
+  console.log('git push files...')
+  await execute('git add .', tempDir)
+  await execute(`git commit -m "${message}"`, tempDir)
+  await execute('git push -u -f origin master', tempDir)
 }
 
 try {
@@ -50,10 +54,9 @@ try {
       console.log(message)
     })
     .catch(error => {
-      throw error
+      core.setFailed(error.message)
     })
 
 } catch (error) {
   core.setFailed(error.message)
-  console.log(`Error : ${error.message}`)
 }
