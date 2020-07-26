@@ -1,0 +1,5 @@
+name: "mkachi-blog-deploy-action"
+description: "Action to deploy my blog with github action"
+runs:
+  using: "node12"
+  main: "src/index.js"

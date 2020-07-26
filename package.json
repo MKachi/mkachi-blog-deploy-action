@@ -1,0 +1,24 @@
+{
+  "name": "mkachi-blog-deploy-action",
+  "version": "1.0.0",
+  "description": "Action to deploy my blog with github action.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MKachi/mkachi-blog-deploy-action.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MKachi/mkachi-blog-deploy-action/issues"
+  },
+  "homepage": "https://github.com/MKachi/mkachi-blog-deploy-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.4",
+    "@actions/github": "^4.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.5.0",
+    "prettier": "^2.0.5"
+  }
+}
