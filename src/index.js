@@ -2,7 +2,6 @@ const core = require('@actions/core')
 const gh = require('@actions/github')
 const time = require('./time')
 const execute = require('./execute')
-const path = require('path')
 
 const tempDir = './_temporary_'
 
@@ -26,7 +25,7 @@ const deploy = async (message, target, info) => {
 
   console.log('move deploy files...')
   await execute(`rm -rf ./*`, tempDir)
-  await execute(`rsync -a ${target.folder}/ ${tempDir}/`)
+  await execute(`rsync -a ./${target.folder}/ ${tempDir}/`)
 
   console.log('git push files...')
   await execute('git add .', tempDir)
@@ -36,7 +35,7 @@ const deploy = async (message, target, info) => {
 
 try {
   const target = {
-    folder: path.resolve('../', core.getInput('FOLDER')),
+    folder: core.getInput('FOLDER'),
     branch: core.getInput('BRANCH'),
     repository: gh.context.payload.repository.full_name
   }
