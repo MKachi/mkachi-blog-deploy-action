@@ -16,7 +16,8 @@
   "dependencies": {
     "@actions/core": "^1.2.4",
     "@actions/exec": "^1.0.4",
-    "@actions/github": "^4.0.0"
+    "@actions/github": "^4.0.0",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "eslint": "^7.5.0",
