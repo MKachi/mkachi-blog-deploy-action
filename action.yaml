@@ -1,5 +1,22 @@
-name: "mkachi-blog-deploy-action"
-description: "Action to deploy my blog with github action"
+name: 'mkachi-blog-deploy-action'
+description: 'Action to deploy my blog with github action'
+
+inputs:
+  token:
+    description: 'your github token'
+    required: false
+    default: ''
+
+  deploy_folder:
+    description: 'deploy file path'
+    required: true
+    default: 'build'
+
+  deploy_branch:
+    description: 'deploy branch'
+    required: true
+    default: 'master'
+
 runs:
-  using: "node12"
-  main: "src/index.js"
+  using: 'node12'
+  main: 'src/index.js'
