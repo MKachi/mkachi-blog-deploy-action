@@ -5,7 +5,7 @@ const execute = require('./execute')
 
 const tempDir = './_temporary_'
 
-const deploy = async (message, target, info) => {
+const deploy = async (branch, message, target, info) => {
   console.log(`mkdir ${tempDir}`)
   await execute(`mkdir ${tempDir}`)
   await execute('ls')
@@ -21,7 +21,7 @@ const deploy = async (message, target, info) => {
     token = `x-access-token:${info.githubToken}`
   }
   await execute(`git remote add origin https://${token}@github.com/${target.repository}.git`, tempDir)
-  await execute('git pull origin master', tempDir)
+  await execute(`git pull origin ${branch}`, tempDir)
 
   console.log('move deploy files...')
   await execute(`rm -rf ./*`, tempDir)
@@ -30,7 +30,7 @@ const deploy = async (message, target, info) => {
   console.log('git push files...')
   await execute('git add .', tempDir)
   await execute(`git commit -m "${message}"`, tempDir)
-  await execute('git push -u -f origin master', tempDir)
+  await execute(`git push -u -f origin ${branch}`, tempDir)
 }
 
 try {
@@ -48,7 +48,7 @@ try {
   }
 
   const message = `[Deploy] 🚀 ${time()}`
-  deploy(message, target, info).then(() => {
+  deploy(branch, message, target, info).then(() => {
       console.log('Deploy Success!')
       console.log(message)
     })
