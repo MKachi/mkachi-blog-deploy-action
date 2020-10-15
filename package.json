@@ -14,12 +14,12 @@
   },
   "homepage": "https://github.com/MKachi/mkachi-blog-deploy-action#readme",
   "dependencies": {
-    "@actions/core": "^1.2.4",
+    "@actions/core": "^1.2.6",
     "@actions/exec": "^1.0.4",
     "@actions/github": "^4.0.0"
   },
   "devDependencies": {
-    "eslint": "^7.5.0",
-    "prettier": "^2.0.5"
+    "eslint": "^7.11.0",
+    "prettier": "^2.1.2"
   }
 }
